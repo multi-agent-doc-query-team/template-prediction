@@ -1,0 +1,335 @@
+[
+  {
+    "template_id": "halliburton_rotary_drilling_v1",
+    "provider": "halliburton",
+    "activity": "rotary_drilling",
+    "version": "v1",
+    "field_group": "A",
+    "well_names": ["MB-35A"],
+    "required_parameters": [
+      "bit_depth",
+      "hole_depth",
+      "rop",
+      "wob",
+      "rpm",
+      "torque",
+      "spp",
+      "flow_in"
+    ]
+  },
+  {
+    "template_id": "halliburton_rotary_drilling_v2",
+    "provider": "halliburton",
+    "activity": "rotary_drilling",
+    "version": "v2",
+    "field_group": "B",
+    "required_parameters": [
+      "bit_depth",
+      "hole_depth",
+      "rop",
+      "wob",
+      "rpm",
+      "torque",
+      "spp",
+      "flow_in",
+      "flow_out",
+      "pit_volume"
+    ]
+  },
+  {
+    "template_id": "halliburton_slide_drilling_v1",
+    "provider": "halliburton",
+    "activity": "slide_drilling",
+    "version": "v1",
+    "field_group": "any",
+    "required_parameters": [
+      "bit_depth",
+      "rop",
+      "wob",
+      "spp",
+      "flow_in",
+      "toolface",
+      "rpm"
+    ]
+  },
+  {
+    "template_id": "halliburton_trip_in_v1",
+    "provider": "halliburton",
+    "activity": "trip_in",
+    "version": "v1",
+    "field_group": "any",
+    "required_parameters": [
+      "bit_depth",
+      "hole_depth",
+      "hookload",
+      "block_position",
+      "slips_status"
+    ]
+  },
+  {
+    "template_id": "halliburton_trip_out_v1",
+    "provider": "halliburton",
+    "activity": "trip_out",
+    "version": "v1",
+    "field_group": "any",
+    "required_parameters": [
+      "bit_depth",
+      "hole_depth",
+      "hookload",
+      "block_position",
+      "slips_status"
+    ]
+  },
+  {
+    "template_id": "halliburton_circulating_v1",
+    "provider": "halliburton",
+    "activity": "circulating",
+    "version": "v1",
+    "field_group": "A",
+    "well_names": ["MB-64"],
+    "required_parameters": [
+      "spp",
+      "flow_in",
+      "flow_out",
+      "spm",
+      "pit_volume"
+    ]
+  },
+  {
+    "template_id": "halliburton_circulating_v2",
+    "provider": "halliburton",
+    "activity": "circulating",
+    "version": "v2",
+    "field_group": "B",
+    "required_parameters": [
+      "spp",
+      "flow_in",
+      "flow_out",
+      "spm",
+      "pit_volume",
+      "mud_weight"
+    ]
+  },
+  {
+    "template_id": "slb_rotary_drilling_v1",
+    "provider": "slb",
+    "activity": "rotary_drilling",
+    "version": "v1",
+    "field_group": "A",
+    "required_parameters": [
+      "bit_depth",
+      "hole_depth",
+      "rop",
+      "wob",
+      "rpm",
+      "torque",
+      "spp",
+      "flow_in"
+    ]
+  },
+  {
+    "template_id": "slb_rotary_drilling_v2",
+    "provider": "slb",
+    "activity": "rotary_drilling",
+    "version": "v2",
+    "field_group": "B",
+    "well_names": ["NS-1A"],
+    "required_parameters": [
+      "bit_depth",
+      "hole_depth",
+      "rop",
+      "wob",
+      "rpm",
+      "torque",
+      "spp",
+      "flow_in",
+      "flow_out",
+      "pit_volume"
+    ]
+  },
+  {
+    "template_id": "slb_slide_drilling_v1",
+    "provider": "slb",
+    "activity": "slide_drilling",
+    "version": "v1",
+    "field_group": "any",
+    "well_names": ["KG-96A"],
+    "required_parameters": [
+      "bit_depth",
+      "rop",
+      "wob",
+      "spp",
+      "flow_in",
+      "toolface",
+      "rpm"
+    ]
+  },
+  {
+    "template_id": "slb_trip_in_v1",
+    "provider": "slb",
+    "activity": "trip_in",
+    "version": "v1",
+    "field_group": "any",
+    "required_parameters": [
+      "bit_depth",
+      "hole_depth",
+      "hookload",
+      "block_position",
+      "slips_status"
+    ]
+  },
+  {
+    "template_id": "slb_trip_out_v1",
+    "provider": "slb",
+    "activity": "trip_out",
+    "version": "v1",
+    "field_group": "any",
+    "required_parameters": [
+      "bit_depth",
+      "hole_depth",
+      "hookload",
+      "block_position",
+      "slips_status"
+    ]
+  },
+  {
+    "template_id": "slb_circulating_v1",
+    "provider": "slb",
+    "activity": "circulating",
+    "version": "v1",
+    "field_group": "A",
+    "required_parameters": [
+      "spp",
+      "flow_in",
+      "flow_out",
+      "spm",
+      "pit_volume"
+    ]
+  },
+  {
+    "template_id": "slb_circulating_v2",
+    "provider": "slb",
+    "activity": "circulating",
+    "version": "v2",
+    "field_group": "B",
+    "required_parameters": [
+      "spp",
+      "flow_in",
+      "flow_out",
+      "spm",
+      "pit_volume",
+      "mud_weight"
+    ]
+  },
+  {
+    "template_id": "baker_hughes_rotary_drilling_v1",
+    "provider": "baker_hughes",
+    "activity": "rotary_drilling",
+    "version": "v1",
+    "field_group": "A",
+    "well_names": ["BH-73H"],
+    "required_parameters": [
+      "bit_depth",
+      "hole_depth",
+      "rop",
+      "wob",
+      "rpm",
+      "torque",
+      "spp",
+      "flow_in"
+    ]
+  },
+  {
+    "template_id": "baker_hughes_rotary_drilling_v2",
+    "provider": "baker_hughes",
+    "activity": "rotary_drilling",
+    "version": "v2",
+    "field_group": "B",
+    "required_parameters": [
+      "bit_depth",
+      "hole_depth",
+      "rop",
+      "wob",
+      "rpm",
+      "torque",
+      "spp",
+      "flow_in",
+      "flow_out",
+      "pit_volume"
+    ]
+  },
+  {
+    "template_id": "baker_hughes_slide_drilling_v1",
+    "provider": "baker_hughes",
+    "activity": "slide_drilling",
+    "version": "v1",
+    "field_group": "any",
+    "well_names": ["BH-070"],
+    "required_parameters": [
+      "bit_depth",
+      "rop",
+      "wob",
+      "spp",
+      "flow_in",
+      "toolface",
+      "rpm"
+    ]
+  },
+  {
+    "template_id": "baker_hughes_trip_in_v1",
+    "provider": "baker_hughes",
+    "activity": "trip_in",
+    "version": "v1",
+    "field_group": "any",
+    "required_parameters": [
+      "bit_depth",
+      "hole_depth",
+      "hookload",
+      "block_position",
+      "slips_status"
+    ]
+  },
+  {
+    "template_id": "baker_hughes_trip_out_v1",
+    "provider": "baker_hughes",
+    "activity": "trip_out",
+    "version": "v1",
+    "field_group": "any",
+    "required_parameters": [
+      "bit_depth",
+      "hole_depth",
+      "hookload",
+      "block_position",
+      "slips_status"
+    ]
+  },
+  {
+    "template_id": "baker_hughes_circulating_v1",
+    "provider": "baker_hughes",
+    "activity": "circulating",
+    "version": "v1",
+    "field_group": "A",
+    "required_parameters": [
+      "spp",
+      "flow_in",
+      "flow_out",
+      "spm",
+      "pit_volume"
+    ]
+  },
+  {
+    "template_id": "baker_hughes_circulating_v2",
+    "provider": "baker_hughes",
+    "activity": "circulating",
+    "version": "v2",
+    "field_group": "B",
+    "required_parameters": [
+      "spp",
+      "flow_in",
+      "flow_out",
+      "spm",
+      "pit_volume",
+      "mud_weight"
+    ]
+  }
+]
