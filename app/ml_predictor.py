@@ -2,7 +2,7 @@ from pathlib import Path
 
 import joblib
 
-from app.utils.normalization import normalize_activity_name, normalize_provider_name
+from app.utils.normalization import build_model_text
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -17,12 +17,10 @@ def predict_template_id(
     well_name: str,
     service_provider: str,
 ):
-    provider = normalize_provider_name(service_provider)
-
-    model_text = (
-        f"provider={provider} "
-        f"activity={normalize_activity_name(activity_name)} "
-        f"well={well_name.strip().lower()}"
+    model_text = build_model_text(
+        activity_name=activity_name,
+        well_name=well_name,
+        service_provider=service_provider,
     )
 
     features = vectorizer.transform([model_text])
