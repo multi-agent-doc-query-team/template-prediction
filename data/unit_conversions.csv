@@ -1,0 +1,12 @@
+target_sensor,unit_type,source_unit,storage_unit,a,m
+BDEPTH,Length,m,ft,0,3.2808399
+BPOS,Length,m,ft,0,3.2808399
+HDEPTH,Length,ft,ft,0,1
+DPOS,Length,ft,ft,0,1
+SPP,Pressure,psi,psf,0,144
+RPM,Rotary Speed,1/s,dps,0,360
+ROP,Drill rate,ft/hr,fps,0,0.0002778
+HKL,Hook weight,1000 lbm,lbs,0,1000
+FLOWIN,Mud flow,gallUS/min,cfs,0,0.00223
+FLOWOUT,Mud flow,gallUS/min,cfs,0,0.00223
+ECD,Mud density,g/cm3,pcf,0,62.43

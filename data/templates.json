@@ -1,0 +1,563 @@
+[
+  {
+    "template_id": "halliburton_rotary_drilling_v1",
+    "provider": "halliburton",
+    "activity": "rotary_drilling",
+    "version": "v1",
+    "field_group": "A",
+    "required_parameters": [
+      "bit_depth",
+      "hole_depth",
+      "rop",
+      "wob",
+      "rpm",
+      "torque",
+      "spp",
+      "flow_in"
+    ],
+    "well_names": [
+      "MB-35A"
+    ]
+  },
+  {
+    "template_id": "halliburton_rotary_drilling_v2",
+    "provider": "halliburton",
+    "activity": "rotary_drilling",
+    "version": "v2",
+    "field_group": "B",
+    "required_parameters": [
+      "bit_depth",
+      "hole_depth",
+      "rop",
+      "wob",
+      "rpm",
+      "torque",
+      "spp",
+      "flow_in",
+      "flow_out",
+      "pit_volume"
+    ]
+  },
+  {
+    "template_id": "halliburton_slide_drilling_v1",
+    "provider": "halliburton",
+    "activity": "slide_drilling",
+    "version": "v1",
+    "field_group": "any",
+    "required_parameters": [
+      "bit_depth",
+      "rop",
+      "wob",
+      "spp",
+      "flow_in",
+      "toolface",
+      "rpm"
+    ]
+  },
+  {
+    "template_id": "halliburton_trip_in_v1",
+    "provider": "halliburton",
+    "activity": "trip_in",
+    "version": "v1",
+    "field_group": "any",
+    "required_parameters": [
+      "bit_depth",
+      "hole_depth",
+      "hookload",
+      "block_position",
+      "slips_status"
+    ]
+  },
+  {
+    "template_id": "halliburton_trip_out_v1",
+    "provider": "halliburton",
+    "activity": "trip_out",
+    "version": "v1",
+    "field_group": "any",
+    "required_parameters": [
+      "bit_depth",
+      "hole_depth",
+      "hookload",
+      "block_position",
+      "slips_status"
+    ]
+  },
+  {
+    "template_id": "halliburton_circulating_v1",
+    "provider": "halliburton",
+    "activity": "circulating",
+    "version": "v1",
+    "field_group": "A",
+    "required_parameters": [
+      "spp",
+      "flow_in",
+      "flow_out",
+      "spm",
+      "pit_volume"
+    ],
+    "well_names": [
+      "MB-64"
+    ]
+  },
+  {
+    "template_id": "halliburton_circulating_v2",
+    "provider": "halliburton",
+    "activity": "circulating",
+    "version": "v2",
+    "field_group": "B",
+    "required_parameters": [
+      "spp",
+      "flow_in",
+      "flow_out",
+      "spm",
+      "pit_volume",
+      "mud_weight"
+    ]
+  },
+  {
+    "template_id": "halliburton_reaming_v1",
+    "provider": "halliburton",
+    "activity": "reaming",
+    "version": "v1",
+    "field_group": "any",
+    "required_parameters": [
+      "bit_depth",
+      "hole_depth",
+      "rpm",
+      "torque",
+      "hookload",
+      "spp",
+      "flow_in"
+    ]
+  },
+  {
+    "template_id": "halliburton_connection_v1",
+    "provider": "halliburton",
+    "activity": "connection",
+    "version": "v1",
+    "field_group": "any",
+    "required_parameters": [
+      "hookload",
+      "block_position",
+      "slips_status",
+      "rpm",
+      "pump_status",
+      "bit_depth"
+    ]
+  },
+  {
+    "template_id": "halliburton_making_survey_v1",
+    "provider": "halliburton",
+    "activity": "making_survey",
+    "version": "v1",
+    "field_group": "any",
+    "required_parameters": [
+      "measured_depth",
+      "inclination",
+      "azimuth",
+      "tvd",
+      "dogleg_severity"
+    ]
+  },
+  {
+    "template_id": "halliburton_running_casing_v1",
+    "provider": "halliburton",
+    "activity": "running_casing",
+    "version": "v1",
+    "field_group": "any",
+    "required_parameters": [
+      "casing_depth",
+      "hookload",
+      "block_position",
+      "slips_status"
+    ]
+  },
+  {
+    "template_id": "halliburton_cementing_v1",
+    "provider": "halliburton",
+    "activity": "cementing",
+    "version": "v1",
+    "field_group": "any",
+    "required_parameters": [
+      "pressure",
+      "flow_rate",
+      "pump_rate",
+      "volume",
+      "density"
+    ]
+  },
+  {
+    "template_id": "slb_rotary_drilling_v1",
+    "provider": "slb",
+    "activity": "rotary_drilling",
+    "version": "v1",
+    "field_group": "A",
+    "required_parameters": [
+      "bit_depth",
+      "hole_depth",
+      "rop",
+      "wob",
+      "rpm",
+      "torque",
+      "spp",
+      "flow_in"
+    ]
+  },
+  {
+    "template_id": "slb_rotary_drilling_v2",
+    "provider": "slb",
+    "activity": "rotary_drilling",
+    "version": "v2",
+    "field_group": "B",
+    "required_parameters": [
+      "bit_depth",
+      "hole_depth",
+      "rop",
+      "wob",
+      "rpm",
+      "torque",
+      "spp",
+      "flow_in",
+      "flow_out",
+      "pit_volume"
+    ],
+    "well_names": [
+      "NS-1A"
+    ]
+  },
+  {
+    "template_id": "slb_slide_drilling_v1",
+    "provider": "slb",
+    "activity": "slide_drilling",
+    "version": "v1",
+    "field_group": "any",
+    "required_parameters": [
+      "bit_depth",
+      "rop",
+      "wob",
+      "spp",
+      "flow_in",
+      "toolface",
+      "rpm"
+    ],
+    "well_names": [
+      "KG-96A"
+    ]
+  },
+  {
+    "template_id": "slb_trip_in_v1",
+    "provider": "slb",
+    "activity": "trip_in",
+    "version": "v1",
+    "field_group": "any",
+    "required_parameters": [
+      "bit_depth",
+      "hole_depth",
+      "hookload",
+      "block_position",
+      "slips_status"
+    ]
+  },
+  {
+    "template_id": "slb_trip_out_v1",
+    "provider": "slb",
+    "activity": "trip_out",
+    "version": "v1",
+    "field_group": "any",
+    "required_parameters": [
+      "bit_depth",
+      "hole_depth",
+      "hookload",
+      "block_position",
+      "slips_status"
+    ]
+  },
+  {
+    "template_id": "slb_circulating_v1",
+    "provider": "slb",
+    "activity": "circulating",
+    "version": "v1",
+    "field_group": "A",
+    "required_parameters": [
+      "spp",
+      "flow_in",
+      "flow_out",
+      "spm",
+      "pit_volume"
+    ]
+  },
+  {
+    "template_id": "slb_circulating_v2",
+    "provider": "slb",
+    "activity": "circulating",
+    "version": "v2",
+    "field_group": "B",
+    "required_parameters": [
+      "spp",
+      "flow_in",
+      "flow_out",
+      "spm",
+      "pit_volume",
+      "mud_weight"
+    ]
+  },
+  {
+    "template_id": "slb_reaming_v1",
+    "provider": "slb",
+    "activity": "reaming",
+    "version": "v1",
+    "field_group": "any",
+    "required_parameters": [
+      "bit_depth",
+      "hole_depth",
+      "rpm",
+      "torque",
+      "hookload",
+      "spp",
+      "flow_in"
+    ]
+  },
+  {
+    "template_id": "slb_connection_v1",
+    "provider": "slb",
+    "activity": "connection",
+    "version": "v1",
+    "field_group": "any",
+    "required_parameters": [
+      "hookload",
+      "block_position",
+      "slips_status",
+      "rpm",
+      "pump_status",
+      "bit_depth"
+    ]
+  },
+  {
+    "template_id": "slb_making_survey_v1",
+    "provider": "slb",
+    "activity": "making_survey",
+    "version": "v1",
+    "field_group": "any",
+    "required_parameters": [
+      "measured_depth",
+      "inclination",
+      "azimuth",
+      "tvd",
+      "dogleg_severity"
+    ]
+  },
+  {
+    "template_id": "slb_running_casing_v1",
+    "provider": "slb",
+    "activity": "running_casing",
+    "version": "v1",
+    "field_group": "any",
+    "required_parameters": [
+      "casing_depth",
+      "hookload",
+      "block_position",
+      "slips_status"
+    ]
+  },
+  {
+    "template_id": "slb_cementing_v1",
+    "provider": "slb",
+    "activity": "cementing",
+    "version": "v1",
+    "field_group": "any",
+    "required_parameters": [
+      "pressure",
+      "flow_rate",
+      "pump_rate",
+      "volume",
+      "density"
+    ]
+  },
+  {
+    "template_id": "baker_hughes_rotary_drilling_v1",
+    "provider": "baker_hughes",
+    "activity": "rotary_drilling",
+    "version": "v1",
+    "field_group": "A",
+    "required_parameters": [
+      "bit_depth",
+      "hole_depth",
+      "rop",
+      "wob",
+      "rpm",
+      "torque",
+      "spp",
+      "flow_in"
+    ],
+    "well_names": [
+      "BH-73H"
+    ]
+  },
+  {
+    "template_id": "baker_hughes_rotary_drilling_v2",
+    "provider": "baker_hughes",
+    "activity": "rotary_drilling",
+    "version": "v2",
+    "field_group": "B",
+    "required_parameters": [
+      "bit_depth",
+      "hole_depth",
+      "rop",
+      "wob",
+      "rpm",
+      "torque",
+      "spp",
+      "flow_in",
+      "flow_out",
+      "pit_volume"
+    ]
+  },
+  {
+    "template_id": "baker_hughes_slide_drilling_v1",
+    "provider": "baker_hughes",
+    "activity": "slide_drilling",
+    "version": "v1",
+    "field_group": "any",
+    "required_parameters": [
+      "bit_depth",
+      "rop",
+      "wob",
+      "spp",
+      "flow_in",
+      "toolface",
+      "rpm"
+    ],
+    "well_names": [
+      "BH-070"
+    ]
+  },
+  {
+    "template_id": "baker_hughes_trip_in_v1",
+    "provider": "baker_hughes",
+    "activity": "trip_in",
+    "version": "v1",
+    "field_group": "any",
+    "required_parameters": [
+      "bit_depth",
+      "hole_depth",
+      "hookload",
+      "block_position",
+      "slips_status"
+    ]
+  },
+  {
+    "template_id": "baker_hughes_trip_out_v1",
+    "provider": "baker_hughes",
+    "activity": "trip_out",
+    "version": "v1",
+    "field_group": "any",
+    "required_parameters": [
+      "bit_depth",
+      "hole_depth",
+      "hookload",
+      "block_position",
+      "slips_status"
+    ]
+  },
+  {
+    "template_id": "baker_hughes_circulating_v1",
+    "provider": "baker_hughes",
+    "activity": "circulating",
+    "version": "v1",
+    "field_group": "A",
+    "required_parameters": [
+      "spp",
+      "flow_in",
+      "flow_out",
+      "spm",
+      "pit_volume"
+    ]
+  },
+  {
+    "template_id": "baker_hughes_circulating_v2",
+    "provider": "baker_hughes",
+    "activity": "circulating",
+    "version": "v2",
+    "field_group": "B",
+    "required_parameters": [
+      "spp",
+      "flow_in",
+      "flow_out",
+      "spm",
+      "pit_volume",
+      "mud_weight"
+    ]
+  },
+  {
+    "template_id": "baker_hughes_reaming_v1",
+    "provider": "baker_hughes",
+    "activity": "reaming",
+    "version": "v1",
+    "field_group": "any",
+    "required_parameters": [
+      "bit_depth",
+      "hole_depth",
+      "rpm",
+      "torque",
+      "hookload",
+      "spp",
+      "flow_in"
+    ]
+  },
+  {
+    "template_id": "baker_hughes_connection_v1",
+    "provider": "baker_hughes",
+    "activity": "connection",
+    "version": "v1",
+    "field_group": "any",
+    "required_parameters": [
+      "hookload",
+      "block_position",
+      "slips_status",
+      "rpm",
+      "pump_status",
+      "bit_depth"
+    ]
+  },
+  {
+    "template_id": "baker_hughes_making_survey_v1",
+    "provider": "baker_hughes",
+    "activity": "making_survey",
+    "version": "v1",
+    "field_group": "any",
+    "required_parameters": [
+      "measured_depth",
+      "inclination",
+      "azimuth",
+      "tvd",
+      "dogleg_severity"
+    ]
+  },
+  {
+    "template_id": "baker_hughes_running_casing_v1",
+    "provider": "baker_hughes",
+    "activity": "running_casing",
+    "version": "v1",
+    "field_group": "any",
+    "required_parameters": [
+      "casing_depth",
+      "hookload",
+      "block_position",
+      "slips_status"
+    ]
+  },
+  {
+    "template_id": "baker_hughes_cementing_v1",
+    "provider": "baker_hughes",
+    "activity": "cementing",
+    "version": "v1",
+    "field_group": "any",
+    "required_parameters": [
+      "pressure",
+      "flow_rate",
+      "pump_rate",
+      "volume",
+      "density"
+    ]
+  }
+]
