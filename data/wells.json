@@ -1,0 +1,16 @@
+{
+  "note": "Assumed rule: field group A wells use v1 templates and group B wells use v2 templates, for activities that have two versions.",
+  "field_groups": {
+    "A": [
+      "KG",
+      "MB",
+      "BH",
+      "TR"
+    ],
+    "B": [
+      "NS",
+      "AR",
+      "DL"
+    ]
+  }
+}
