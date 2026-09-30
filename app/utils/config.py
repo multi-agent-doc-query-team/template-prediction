@@ -26,7 +26,7 @@ def get_validation_dataset_file() -> Path:
     configured_path = os.getenv("VALIDATION_DATA_FILE")
 
     if not configured_path:
-        return BASE_DIR / "data" / "dataset.csv"
+        return BASE_DIR / "data" / "trained_dataset.csv"
 
     dataset_path = Path(configured_path)
     return dataset_path if dataset_path.is_absolute() else BASE_DIR / dataset_path

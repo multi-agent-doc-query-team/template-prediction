@@ -64,3 +64,24 @@ def normalize_provider_name(value: str) -> str:
 
 def normalize_activity_name(value: str) -> str:
     return _canonicalize(value, ACTIVITY_ALIASES, threshold=0.68)
+
+
+def build_model_text(
+    *,
+    activity_name: str,
+    well_name: str,
+    service_provider: str,
+) -> str:
+    """Build the exact text representation used to train the ML model.
+
+    Keep this transformation deliberately small. The character n-gram model
+    was trained on lower-cased raw values so that it can learn spelling and
+    formatting variations itself. Both training and inference must call this
+    function to prevent feature drift.
+    """
+
+    return (
+        f"provider={str(service_provider).lower()} "
+        f"activity={str(activity_name).lower()} "
+        f"well={str(well_name).lower()}"
+    )
