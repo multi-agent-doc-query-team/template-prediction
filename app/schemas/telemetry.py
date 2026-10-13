@@ -1,9 +1,17 @@
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    StrictFloat,
+    StrictInt,
+    StrictStr,
+)
 
 
-TelemetryValue = int | float | str
+TelemetryValue = StrictInt | StrictFloat | StrictStr
+
 
 ReadingType = Literal[
     "physical",
@@ -11,6 +19,7 @@ ReadingType = Literal[
     "text",
     "unknown",
 ]
+
 
 SIUnit = Literal[
     "m",
@@ -31,6 +40,12 @@ SIUnit = Literal[
     "Hz",
     "rad",
     "rad/s",
+    "Pa·s",
+    "V",
+    "A",
+    "Ω",
+    "F",
+    "lx",
     "1",
 ]
 
@@ -38,19 +53,26 @@ SIUnit = Literal[
 class TelemetryReading(BaseModel):
     model_config = ConfigDict(populate_by_name=True)
 
-    sensor: str = Field(alias="Mnemonic", min_length=1)
+    sensor: str = Field(
+        alias="Mnemonic",
+        min_length=1,
+    )
+
     value: TelemetryValue
-    unit: str | None = None
+
+    source_unit: str | None = None
+
     unit_type: str | None = None
 
 
 class ConvertTelemetryRequest(BaseModel):
-    readings: list[TelemetryReading] = Field(min_length=1)
+    readings: list[TelemetryReading] = Field(
+        min_length=1,
+    )
 
 
 class UnitDecision(BaseModel):
-    reading_index: int
-    reading_type: Literal["physical", "dimensionless", "text", "unknown"]
+    reading_type: ReadingType
     unit_type: str | None = None
 
 
@@ -60,9 +82,9 @@ class UnitInterpretationBatch(BaseModel):
 
 class ConvertedTelemetryReading(BaseModel):
     sensor: str
-    value: float | str
-    unit: str | None
+    target_unit: SIUnit | None = None
     unit_type: str | None = None
+    conversion: str | None = None
 
 
 class ConvertTelemetryResponse(BaseModel):
