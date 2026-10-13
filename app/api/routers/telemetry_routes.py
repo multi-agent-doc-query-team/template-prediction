@@ -17,7 +17,6 @@ router = APIRouter(prefix="/api/v1", tags=["Telemetry"])
 @router.post(
     "/telemetry/convert",
     response_model=ConvertTelemetryResponse,
-    response_model_exclude_none=True,
 )
 def convert_telemetry(
     request: ConvertTelemetryRequest,
@@ -28,11 +27,17 @@ def convert_telemetry(
     except UnitModelUnavailable as exc:
         raise HTTPException(
             status_code=503,
-            detail={"success": False, "message": str(exc)},
+            detail={
+                "success": False,
+                "message": str(exc),
+            },
         ) from exc
 
     except UnitConversionError as exc:
         raise HTTPException(
             status_code=422,
-            detail={"success": False, "message": str(exc)},
+            detail={
+                "success": False,
+                "message": str(exc),
+            },
         ) from exc

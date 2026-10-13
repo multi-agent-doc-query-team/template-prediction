@@ -1,0 +1,344 @@
+mnemonic,source_unit,description,unit_type
+ACTC,unitless,Activity Code,categorical
+BPOS,ft,Block Position,length
+CHKP,psi,Casing (Choke) Pressure,pressure
+DATE,unitless,Date,datetime
+DBTM,ft,Depth Bit (meas),length
+DDS,unitless,DDSr-DGR Stickslip,dimensionless
+DDTV,ft,DDSr-DGR StickSlip (vert),length
+DDDP,ft,DDSr-DGR Stick Slip (meas),length
+DBTV,ft,Depth Bit (vert),length
+DRTM,ft,Depth Returns (meas),length
+DMEA,ft,Depth Hole (meas),length
+DVER,ft,Depth Hole (vert),length
+EAXF,ppg,PWD AECDMax (Off),density
+ESD_ARCA_RT,ppg,ESD Avg,density
+EANF,ppg,PWD AECDMin (Off),density
+ECOF,ppg,ESD Max,density
+GASA,%,Gas,dimensionless
+GPATBIT,dega,GP at Bit Inclination,angle
+GTDP,ft,FTWD Test Depth,length
+GPS1,psi,FTWD P Stop 1,pressure
+GTP2,psi,FTWD Hydr Press 2,pressure
+GTTV,ft,FTWD Test TVD,length
+ECD_ARC_RT,ppg,ECD,density
+HKLA,klbf,Hookload (avg),force
+GTP1,psi,FTWD Hydr Press 1,pressure
+MDIA,ppg,Mud Density In (avg),density
+GPED,psi,FTWD Fill Up Press,pressure
+GPSP,psi,FTWD P Stop,pressure
+MFOA,galUS/min,Mud Flow Out (avg),volume_flow
+MFOP,%,Mud Flow Out %,dimensionless
+MDOA,ppg,Mud Density Out (avg),density
+HKLX,klbf,Hookload (max),force
+MCIA,mmo,Mud Conductivity In (avg),
+IROP,ft/hr,ROP Inst,rate
+MFIA,galUS/min,Mud Flow In (avg),volume_flow
+MTIA,degF,Mud Temperature In (avg),temperature
+MTOA,degF,Mud Temperature Out (avg),temperature
+PAAF,psi,PWD APressAvg (Off),pressure
+PWDP,ft,Dth PWD Ann Pres (On) (meas),length
+PWEA,ppg,PWD Ann ECD (On),density
+PWEI,ppg,PWD Int ECD (On),density
+PEOF,ppg,ESD Min,density
+PAXF,psi,PWD APressMax (Off),pressure
+PWITV,ft,Dth PWD Int Pres (On) (vert),length
+PWANFDP,ft,Dth PWD-APresMin (Off-Meas),length
+PWANFTV,ft,Dth PWD APresMin (Off-Vert),length
+PWXTV,ft,Dth PWD APresMax (Off-Vert),length
+PWATV,ft,Dth PWD APresAvg (Off-Vert),length
+PWADP,ft,Dth PWD-APresAvg (Off-Meas),length
+PWIDP,ft,Dth PWD Int Pres (On)(meas),length
+SPPA,psi,Standpipe Pressure (avg),pressure
+PWPA,psi,PWD Ann Raw Pressure (On),pressure
+ROPA,ft/hr,Rate of Penetration (avg),rate
+RPMA,rpm,"Rotary Speed (surf, avg)",rotational_speed
+STKC,unitless,Pump Stroke Count (cum),dimensionless
+TIME,unitless,Time,
+PWPI,psi,PWD Int Raw Pres (On),pressure
+TQX,kft.lbf,"Rotary Torque (surf, max)",torque
+SPM3,spm,Pump Stroke Rate #3,frequency
+SPM1,spm,Pump Stroke Rate #1,frequency
+SPM2,spm,Pump Stroke Rate #2,frequency
+TRPM,rpm,Turbine RPM,rotational_speed
+TVA,bbl,Tank Volume (active),volume
+PWXDP,ft,Dth PWD-APresMax (Off-Meas),length
+WOBX,klbf,"Weight-on-Bit (surf, max)",force
+TQA,kft.lbf,"Rotary Torque (surf, avg)",torque
+TVCA,bbl,Tank Volume Change (act),volume
+dTim,Unitless,dTim,
+EAAF,ppg,PWD AECDAvg (Off),density
+GPS2,psi,FTWD P Stop 2,pressure
+GPSD,psi,FTWD DD Press,pressure
+LSTK,unitless,Lag Strokes,dimensionless
+MCOA,mmo,Mud Conductivity Out (avg),
+PANF,psi,PWD APressMin (Off),pressure
+PWTV,ft,Dth PWD Ann Pres (On) (vert),length
+WOBA,klbf,"Weight-on-Bit (surf, avg)",force
+DSVV,ft,Depth Svy/reading (vert),length
+DSVM,ft,Depth Svy/reading (meas),length
+md,ft,md,length
+PASS,unitless,Pass Number,dimensionless
+SINC,dega,Svy Inclination,angle
+SMTF,dega,Svy Magnetic Toolface,angle
+SDLS,dega/100ft,Svy Dog Leg Severity,
+STYP,unitless,Svy Type,categorical
+SGTF,dega,Svy Gravity Toolface,angle
+SNS,ft,Svy North-South Position,length
+SWLK,dega/ft,Svy Rate of Walk,
+SAZC,dega,Svy Azimuth (corrected),angle
+SAZU,dega,Svy Azimuth (uncorrected),angle
+SEW,ft,Svy East-West Position,length
+DAOM,ft,Depth PWD Ann Pres (Off)(meas),length
+DOFV,ft,Depth PWD Int Pres (Off)(vert),length
+DOFM,ft,Depth PWD Int Pres (Off)(meas),length
+DPTV,ft,Depth PWD Temp (vert),length
+PAOF,psig,PWD Ann Raw Pressure (Off),pressure
+PBOF,psig,PWD Int Raw Pressure (Off),pressure
+PWDT,degC,PWD Temperature,temperature
+DAOV,ft,Depth PWD Ann Pres (off)(vert),length
+DPTM,ft,Depth PWD Temp (meas),length
+AVGZ,gn,Average Vibration Z axis,
+AVGY,gn,Average Vibration Y axis,
+DAVM,ft,Depth Avg Vibration (meas),length
+DAVV,ft,Depth Avg Vibration (vert),length
+DDVV,ft,Depth Delta Vibration (vert),length
+DDVM,ft,Depth Delta Vibration (meas),length
+DPVM,ft,Depth Peak Vibration (meas),length
+DPVV,ft,Depth Peak Vibration (vert),length
+DTDM,ft,Depth Total Vib - Delta (meas),length
+DTVV,ft,Depth Total Vib - Avg (vert),length
+DVPM,ft,Depth Total Vib - Peak (meas),length
+DVAV,gn,Delta Vibration Average (X-Y),
+DTVM,ft,Depth Total Vib - Avg (meas),length
+DVPV,ft,Depth Total Vib - Peak (vert),length
+DVPA,gn,Delta Vibration Peak (X-Y),
+PKVX,gn,Peak Vibration X axis,
+PKVZ,gn,Peak Vibration Z axis,
+TVPX,gn,Total Vibration Peak X,
+TVPZ,gn,Total Vibration Peak Z,
+STICKSLIP,unitless,Stick Slip,dimensionless
+TVDA,gn,Total Vibration Delta Avg (X-Y),
+TVAX,gn,Total Vibration Average X,
+AVGX,gn,Average Vibration X axis,
+DTDV,ft,Depth Total Vib - Delta (vert),length
+PKVY,gn,Peak Vibration Y axis,
+DCLV,ft,Depth Caliper (vert),length
+DCLM,ft,Depth Caliper (meas),length
+DFDV,ft,Depth Form Density (vert),length
+DFDM,ft,Depth Form Density (meas),length
+DG2M,ft,Depth G.Ray 2 sensor(meas),length
+DG1M,ft,Depth G.Ray 1 sensor(meas),length
+DP1V,ft,Depth Por 1 sensor (vert),length
+DR1V,ft,Depth Resis 1 sensor (vert),length
+DP2M,ft,Depth Por 2 sensor (meas),length
+DR2V,ft,Depth Resis 2 sensor (vert),length
+DP1M,ft,Depth Por 1 sensor (meas),length
+DR2M,ft,Depth Resis 2 sensor (meas),length
+DR3M,ft,Depth Resis 3 sensor (meas),length
+DP2V,ft,Depth Por 2 sensor (vert),length
+DR1M,ft,Depth Resis 1 sensor (meas),length
+DR3V,ft,Depth Resis 3 sensor (vert),length
+EWT,degF,EWR P4-P4D Temp,temperature
+EWXT,hr,Formation Exp Time,time
+EWDP,ft,EWR P4-P4D Temp Depth (meas),length
+EWTV,ft,EWR P4-P4D Temp Depth (vert),length
+MCLP,in,Caliper,length
+MFRA,ohm.m,Downhole Fluid Resis (ann),
+MFRP,degF,Downhole Fluid Resis (pipe),temperature
+MFTA,ohm.m,Downhole Fluid Temp (ann),
+MFTP,degF,Downhole Fluid Temp (pipe),temperature
+MG1C,API,Gamma Ray 1(borehole corr),
+MG2,API,Gamma Ray 2 reading,
+MFFP,ppg,Frac Pressure Grad MWD,density
+MPO2,v/v,Porosity Tool 2 reading,dimensionless
+MFPP,ppg,Pore Pressure Grad MWD,density
+MR2C,ohm.m,Resis 2 (borehole corr),
+MG1,API,Gamma Ray 1 reading,
+MPO1,v/v,Porosity Tool 1 reading,dimensionless
+MR1,ohm.m,Resis 1 reading,
+MR3C,ohm.m,Resis 3 (borehole corr),
+DG1V,ft,Depth G.Ray 1 sensor(vert),length
+DG2V,ft,Depth G.Ray 2 sensor(vert),length
+MFD,g/cm3,Formation Density,density
+MG2C,API,Gamma Ray 2(borehole corr),
+MR1C,ohm.m,Resis 1 (borehole corr),
+MR2,ohm.m,Resis 2 reading,
+ACDL,g/cm3,DCL reading,density
+ALDP,ft,Depth ADL (meas),length
+ALTV,ft,Depth ADL (vert),length
+TNDP,ft,Depth CTN (meas),length
+TNPL,v/v,LS POROSITY reading,dimensionless
+TNTV,ft,Depth CTN (vert),length
+ACDP,ft,ACAL Depth Caliper (meas),length
+ACTV,ft,ACAL Depth Caliper (vert),length
+AHDA,in,PCAL Caliper,length
+AHD,in,ACAL Caliper,length
+PCDP,ft,PCAL Depth Caliper (meas),length
+PCTV,ft,PCAL Depth Caliper (vert),length
+BTTV,m,Depth Sonic Sensor (vert),length
+BTDP,m,Depth Sonic Sensor (meas),length
+MR4C,ohm.m,Resis 4 (borehole corr),
+MR4,ohm.m,Resis 4,
+MALT,V,MWD Tool Alternator Voltage,voltage
+MBPI,psi,Bottom-hole internal press,pressure
+MBPA,psi,Bottom-hole annulus press,pressure
+MMRP,rpm,Downhole Motor RPM,rotational_speed
+MTQX,kft.lbf,Downhole Torque (max),torque
+MWBA,klbf,Downhole Weight-on-Bit (avg),force
+MTQA,kft.lbf,Downhole Torque (avg),torque
+MWBX,klbf,Downhole Weight-on-Bit (max),force
+MRTV,ft,Depth MRIL (vert),length
+MRDP,ft,Depth MRIL (meas),length
+PMIC,pu,MRIL T1 Micro Porosity RT,
+PIRM,pu,MRIL T1 Irreducible Porosity RT,
+PTOT,pu,MRIL T1 Total Porosity RT,
+T1KC,mD,MRIL T1 Perm Coates RT,
+42TV,ft,P4D Depth 42T Sensor (vert),length
+ABRT,ohm.m,AFR RT Resistivity,
+24DP,ft,P4D Depth 24T Sensor (meas),length
+A39P,ohm.m,EWRP4 Deep Atten Res (BCorr),
+24TV,ft,P4D Depth 24T Sensor (vert),length
+ABDP,ft,AFR Depth (meas),length
+ABTV,ft,AFR Depth (vert),length
+42DP,ft,P4D Depth 42T Sensor (meas),length
+ADTE,degF,ADR Temp,temperature
+ADTTV,ft,ADR Temp Depth (vert),length
+AM1C,ohm.m,ADR Shallow (borehole corr),
+AM3C,ohm.m,ADR Deep (borehole corr),
+AM3D,ohm.m,ADR Deep Atten Res (BCorr),
+B24P,ohm.m,P4D 24T Resistivity (Bcorr),
+B42A,ohm.m,P4D 42T Atten Res (Bcorr),
+ADTV,ft,ADR Depth Shallow Phase (vert),length
+ADTDP,ft,ADR Temp Depth (meas),length
+B42P,ohm.m,P4D 42T Resistivity (Bcorr),
+B15P,ohm.m,EWRP4 Shallow (borehole corr),
+B39P,ohm.m,EWRP4 Deep (borehole corr),
+EW15DP,ft,EWRP4 Depth Shallow Phase (meas),length
+EWTTV,ft,EWR P4-P4D Temp Depth (vert),length
+EW39DP,ft,EWRP4 Depth Deep Phase (meas),length
+EW15TV,ft,EWRP4 Depth Shallow Phase (vert),length
+EW39TV,ft,EWRP4 Depth Deep Phase (vert),length
+M1PC,ohm.m,M5 Shallow (borehole corr),
+M5T,degF,M5 Temp,temperature
+M5PC,ohm.m,M5 Deep (borehole corr),
+M5TDP,ft,M5 Temp Depth (meas),length
+M5DP,ft,M5 Depth (meas),length
+M5AC,ohm.m,M5 Deep Atten Res (BCorr),
+M5TV,ft,M5 Depth  (vert),length
+M5TTV,ft,M5 Temp Depth (vert),length
+ADDP,ft,ADR Depth Shallow Phase (meas),length
+EWTDP,ft,EWR P4-P4D Temp Depth (meas),length
+AGTV,ft,AGR Depth (vert),length
+AGDP,ft,AGR Depth (meas),length
+AGRC,API,AGR Sensor,
+BGTV,ft,ABG Depth (vert),length
+BCGC,API,ABG Sensor,
+BGDP,ft,ABG Depth (meas),length
+DGCC,API,DGR Comb Gamma Ray(Bcorr),
+DGTV,ft,DGR Depth (vert),length
+GMTV,ft,GM Depth (vert),length
+GMDP,ft,GM Depth (meas),length
+GMGC,API,GM sensor,
+DGDP,ft,DGR Depth (meas),length
+BTCS,us/ft,QBAT COMP SLOWNESS RT,
+QBTV,ft,Depth QBAT (vert),length
+QBDP,ft,Depth QBAT (meas),length
+XBC1,us/ft,XBAT COMP SLOWNESS 1 RT,
+XBDP,ft,Depth XBAT (meas),length
+XBTV,ft,Depth XBAT (vert),length
+CFIA,bbl/m,Cem Flow Rate In (avg),volume_flow
+CDIA,ppg,Cem Fluid Dens In (avg),density
+CTVL,bbl,Cem Total Vol Pumped,volume
+CPPA,psi,Cem Pump Pressure (avg),pressure
+CCRT,m3,Cem Cumulative Returns,volume
+CFIC,bbl/m,Cem Flow Rate In (calc),volume_flow
+CFOA,bbl/m,Cem Flow Rate Out (avg),volume_flow
+CFOP,%,Cem Flow Out %,dimensionless
+CCVL,m3,Cem Cement Vol Pumped,volume
+CTIA,degC,Cem Fluid Temp In (avg),temperature
+CDOA,ppg,Cem Fluid Dens Out (avg),density
+CIVL,m3,Cem Indiv Vol Pumped,volume
+CBVL,m3,Cem Volume to Bump Plug,volume
+CSTG,unitless,Cem Stage Number,
+DDVT,m,Cem Depth to DV Tool,length
+SPR3,unitless,< SPARE 3 >,categorical
+SPR1,unitless,< SPARE 1 >,categorical
+SPR2,unitless,< SPARE 2 >,categorical
+SPR4,unitless,< SPARE 4 >,categorical
+SPR5,unitless,< SPARE 5 >,categorical
+CJTY,unitless,Cem Job Type,categorical
+CPLG,unitless,Cem No./Status of Plug(s),categorical
+CTOA,degC,Cem Fluid Temp Out (avg),temperature
+CTYP,unitless,Cem Fluid Type/Batch,categorical
+DCGM,m,Depth Casing Shoe (meas),length
+DCGV,m,Depth Casing Shoe (vert),length
+ECDC,kgm3,ECD at Casing Shoe,density
+PRESSGAU,psi,Pressure Gauge,pressure
+PRESSGAU3,psi,Pressure Gauge #3,pressure
+PRESSGAU2,psi,Pressure Gauge #2,pressure
+TEMPGAU2,degC,Temperature Gauge #2,temperature
+TEMPGAU,degC,Temperature Gauge,temperature
+TEMPGAU3,degC,Temperature Gauge #3,temperature
+CASINGMD,lbm,Stage Proppant Pumped,mass
+CASINTVD,lbm,Proppant in Formation,mass
+CURTIME,bbl,Slurry left in stage,volume
+DATEOUTP,lbm/galUS,Slurry Density,density
+PMPPRESS,lbm,Job Proppant Pumped,mass
+WACTCOD,bbl/min,Flowback Rate,volume_flow
+WBMSDPTH,lbm/galUS,Slurry Proppant Conc,density
+WCEMFIA,bbl,Stage Slurry Volume,volume
+WRECID,lbm/galUS,BH Proppant Conc,density
+WBTVDPTH,unitless,Stage@Perf,categorical
+WCEMFIC,bbl,Slurry Stage Size,volume
+WHKLA,unitless,Stage At Blender,categorical
+WSTKNUM,psi,Backside Pressure,pressure
+WBLKPOS,min,Stage Pump Time Left,time
+WSEQID,bbl/min,Slurry Rate,volume_flow
+OPWELLID,psi,Treating Pressure,pressure
+BST,%,Bulk Surge Tank Level,dimensionless
+SLPP,psi,Slurry Pump Pressure,pressure
+APIC,API,Oil API @ 60 DegF,
+AnnP,psig,Annulus Pressure,pressure
+CHKS,64ths,Choke Size,
+CO2,%,CO2,dimensionless
+CHLR,ppm,Chloride,
+DiffP,InW,Differential Pressure,
+DSCP,psig,Downstream Choke Pressure,pressure
+DSCT,degF,Downstream Choke Temperature,temperature
+GasSG,unitless,Gas SG,
+GOR,scf/bbl,GOR,
+H2S,ppm,H2S,
+GasT,degF,Sep Gas Temp,temperature
+OilT,degF,Sep Oil Temp,temperature
+ORID,in,Orifice Plate ID,length
+OilR,bbl/d,Oil Rate,volume_flow
+Stat,psig,Separator Operating Pressure,pressure
+USCT,degF,Upstream Choke Temp,temperature
+WHT,degF,Wellhead Temperature,temperature
+USCP,psig,Upstream Choke Pressure,pressure
+WtrR,bbl/d,Water Rate,volume_flow
+CHKB,%,Choke BS&W,dimensionless
+GasR,MMscf/d,Gas Rate,
+WHP,psig,Wellhead Pressure,pressure
+CGR,BBL/MMScf,Condensate Gas Ratio,
+CBSW,%,Choke BS&W,dimensionless
+DSSGR,lb/mmscf,Downstream Sand Gas Rate Ratio,
+DSSIR,g/sec,Downstream Sand Impact Rate,
+GSG,unitless,Gas SG,
+GasP,psig,Gas Pressure,pressure
+LIQR,bbl/d,Liquid Rate,volume_flow
+GCMR,LBM/Min,Gas Coriolis Mass Rate,
+N2,%,N2,dimensionless
+OCMR,LBM/Min,Oil Coriolis Mass Rate,
+pH,unitless,pH,
+SSSBOREP,psig,Subsea Bore Pressure,pressure
+USSGR,lb/mmscf,Upstream Sand Gas Rate Ratio,
+SSSBORET,degF,Subsea Bore Temperature,temperature
+WTRt,bbl/d,Water Rate,volume_flow
+SSSANNP,psig,Subsea Annulus Pressure,pressure
+USSIR,g/sec,Upstream Sand Impact Rate,
+PEF,unitless,PE Factor,
+TRPMA,rpm,"Rotary Speed (surf, avg)",rotational_speed
+SONIC,us/m,Sonic Reading,
+ACHDC,in,,length
