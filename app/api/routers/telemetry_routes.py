@@ -2,34 +2,42 @@ from fastapi import APIRouter, HTTPException
 
 from app.schemas.telemetry import (
     ConvertTelemetryRequest,
-    ConvertedTelemetryReading,
-    UnitMetadata,
+    ConvertTelemetryResponse,
 )
 from app.services.unit_conversion_service import (
+    UnitConversionError,
+    UnitModelUnavailable,
     convert_readings,
-    get_unit_metadata,
 )
 
 
 router = APIRouter(prefix="/api/v1", tags=["Telemetry"])
 
 
-@router.get("/units/{sensor}", response_model=UnitMetadata)
-def get_sensor_units(sensor: str):
-    try:
-        return get_unit_metadata(sensor)
-    except KeyError as error:
-        raise HTTPException(status_code=404, detail=str(error)) from error
-
-
 @router.post(
     "/telemetry/convert",
-    response_model=list[ConvertedTelemetryReading],
+    response_model=ConvertTelemetryResponse,
 )
-def convert_telemetry(request: ConvertTelemetryRequest):
+def convert_telemetry(
+    request: ConvertTelemetryRequest,
+) -> ConvertTelemetryResponse:
     try:
-        return convert_readings(
-            [reading.model_dump() for reading in request.readings]
-        )
-    except (KeyError, ValueError) as error:
-        raise HTTPException(status_code=400, detail=str(error)) from error
+        return convert_readings(request)
+
+    except UnitModelUnavailable as exc:
+        raise HTTPException(
+            status_code=503,
+            detail={
+                "success": False,
+                "message": str(exc),
+            },
+        ) from exc
+
+    except UnitConversionError as exc:
+        raise HTTPException(
+            status_code=422,
+            detail={
+                "success": False,
+                "message": str(exc),
+            },
+        ) from exc

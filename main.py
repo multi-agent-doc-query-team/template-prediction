@@ -4,8 +4,9 @@ from fastapi.responses import JSONResponse
 
 from app.api.routers.template_routes import router as template_router
 from app.api.routers.telemetry_routes import router as telemetry_router
-
-
+from app.api.routers.ai_telemetry_routes import (
+    router as ai_telemetry_router,
+)
 # FASTAPI APPLICATION
 
 app = FastAPI(
@@ -38,9 +39,10 @@ async def validation_exception_handler(
 
         # Convert technical field names into readable names
         field_names = {
-            "activity_name": "Activity Name",
-            "well_name": "Well Name",
-            "service_provider": "Service Provider"
+            "readings": "Readings",
+            "sensor": "Sensor",
+            "value": "Value",
+            "source_unit": "Source Unit",
         }
 
         friendly_name = field_names.get(field, "Input")
@@ -126,3 +128,4 @@ async def unexpected_exception_handler(
 
 app.include_router(template_router)
 app.include_router(telemetry_router)
+app.include_router(ai_telemetry_router)
