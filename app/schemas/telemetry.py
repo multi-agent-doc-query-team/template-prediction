@@ -82,9 +82,12 @@ class UnitInterpretationBatch(BaseModel):
 
 class ConvertedTelemetryReading(BaseModel):
     sensor: str
-    target_unit: SIUnit | None = None
+    target_unit: str | None = None
     unit_type: str | None = None
-    conversion: str | None = None
+    multiply: float | None = None
+    subtract: float | None = None
+    divide: float | None = None
+    add: float | None = None
 
 
 class ConvertTelemetryResponse(BaseModel):
