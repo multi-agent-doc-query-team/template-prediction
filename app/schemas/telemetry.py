@@ -1,91 +1,55 @@
-from typing import Literal
+from pydantic import AliasChoices, BaseModel, ConfigDict, Field, StrictFloat, StrictInt, field_validator, model_validator
+from app.utils.unit_conversion.aliases import PASSTHROUGH
+import math
 
-from pydantic import (
-    BaseModel,
-    ConfigDict,
-    Field,
-    StrictFloat,
-    StrictInt,
-    StrictStr,
-)
-
-
-TelemetryValue = StrictInt | StrictFloat | StrictStr
-
-
-ReadingType = Literal[
-    "physical",
-    "dimensionless",
-    "text",
-    "unknown",
-]
-
-
-SIUnit = Literal[
-    "m",
-    "m²",
-    "m³",
-    "m/s",
-    "m/s²",
-    "kg",
-    "kg/m³",
-    "s",
-    "K",
-    "Pa",
-    "N",
-    "N·m",
-    "J",
-    "W",
-    "m³/s",
-    "Hz",
-    "rad",
-    "rad/s",
-    "Pa·s",
-    "V",
-    "A",
-    "Ω",
-    "F",
-    "lx",
-    "1",
-]
-
-
-class TelemetryReading(BaseModel):
-    model_config = ConfigDict(populate_by_name=True)
-
-    sensor: str = Field(
-        alias="Mnemonic",
-        min_length=1,
-    )
-
-    value: TelemetryValue
-
-    source_unit: str | None = None
-
+class Reading(BaseModel):
+    model_config = ConfigDict(extra='forbid')
+    mnemonic: str = Field(min_length=1, validation_alias=AliasChoices('mnemonic','Mnemonic','sensor'))
+    value: StrictInt | StrictFloat | str
+    source_unit: str = Field(min_length=1)
     unit_type: str | None = None
 
+    @field_validator('value', mode='before')
+    @classmethod
+    def validate_number(cls, value):
+        if isinstance(value, str):
+            if not value.strip():
+                raise ValueError('A nonblank value is required.')
+            return value
+        if type(value) not in (int, float):
+            raise ValueError('A numeric value is required.')
+        try:
+            finite = math.isfinite(value)
+        except (OverflowError, ValueError):
+            finite = False
+        if not finite:
+            raise ValueError('A finite numeric value is required.')
+        return value
 
-class ConvertTelemetryRequest(BaseModel):
-    readings: list[TelemetryReading] = Field(
-        min_length=1,
-    )
+    @model_validator(mode='after')
+    def validate_passthrough_string(self):
+        if isinstance(self.value, str) and self.source_unit not in PASSTHROUGH:
+            raise ValueError('Strings are allowed only for explicit passthrough labels.')
+        return self
 
+    @field_validator('mnemonic','source_unit')
+    @classmethod
+    def clean_required(cls, value):
+        if not value.strip(): raise ValueError('Value cannot be blank.')
+        return value.strip()
 
-class UnitDecision(BaseModel):
-    reading_type: ReadingType
-    unit_type: str | None = None
+class ConversionRequest(BaseModel):
+    model_config = ConfigDict(extra='forbid')
+    readings: list[Reading] = Field(min_length=1, max_length=50)
 
-
-class UnitInterpretationBatch(BaseModel):
-    decisions: list[UnitDecision]
-
-
-class ConvertedTelemetryReading(BaseModel):
+class Formula(BaseModel):
     sensor: str
-    target_unit: SIUnit | None = None
-    unit_type: str | None = None
-    conversion: str | None = None
+    target_unit: str
+    unit_type: str | None
+    multiply: float
+    divide: float
+    add: float
+    subtract: float
 
-
-class ConvertTelemetryResponse(BaseModel):
-    converted_values: list[ConvertedTelemetryReading]
+class ConversionResponse(BaseModel):
+    converted_values: list[Formula]
