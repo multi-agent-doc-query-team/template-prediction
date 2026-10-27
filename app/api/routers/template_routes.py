@@ -5,9 +5,9 @@ from app.schemas.template import (
     TemplateRequest,
 )
 from app.services.template_service import classify_and_get_template
-import logging
+from app.utils.debug import get_logger
 router = APIRouter()
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 @router.get("/", tags=["System"])
 def root():

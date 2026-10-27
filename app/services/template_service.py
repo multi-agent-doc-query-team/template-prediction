@@ -1,9 +1,9 @@
 from typing import Dict, List, Optional
 from app.repositories.template_repository import get_template_repository
 from app.services.tools.predictor import predict_template_id
-import logging
+from app.utils.debug import get_logger
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 USER_MESSAGES = {
     "INVALID_ACTIVITY": {

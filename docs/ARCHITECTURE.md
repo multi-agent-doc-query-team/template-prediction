@@ -17,13 +17,15 @@ served by `main:app`: template classification and telemetry unit conversion.
 | `app/repositories/` | Read and index the template files |
 | `app/ml_predictor.py` | Run the existing saved classification model |
 | `app/utils/constants.py` | Central project directories and default file paths |
+| `app/utils/env.py` | Load local environment settings, preserving process overrides |
+| `app/utils/debug.py` | Configure console logging and expose named loggers |
 | `app/utils/config.py` | Resolve environment overrides for template data paths |
 | `app/utils/unit_conversion/` | Validate unit meanings, call Pint, and render SI labels |
 | `data/` and `models/` | Preserve the reference sources and trained artifacts |
 | Archived `scripts/` | Offline tools in the development ZIP; absent from the working folders |
 | Archived `tests/` | Regression checks and fixtures in the development ZIP |
 | `output/` | Saved responses, workbooks, reports, and development archives |
-| `project_backups/` | Local recovery copy; excluded from Git |
+| `../project_backups/` | Recovery copies beside the project; outside the active tree |
 
 ## Template request workflow
 
@@ -106,7 +108,7 @@ reads audit coefficients and is not imported by the running API.
 ## Verification and preservation
 
 The loose tests and offline tools were archived after verification. To restore them,
-extract `project_backups/development_archives/Archived_Development_Tools.zip` into
+extract `../project_backups/development_archives/Archived_Development_Tools.zip` into
 the project root. Then run:
 
 ```cmd
@@ -122,7 +124,7 @@ and checks the existing numerical references; it is not a new independent
 certification of the underlying unit definitions.
 
 The full pre-refactor copy is in
-`project_backups/before_architecture_refactor/`. Its manifest records the hashes
+`../project_backups/before_architecture_refactor/`. Its manifest records the hashes
 of 13,104 verified files. Stop the server before restoring a backup. Keep this
 folder local because the complete copy includes environment configuration.
 
@@ -133,3 +135,31 @@ reports. Loose development files were archived with verified SHA-256 fingerprint
 before removal. The `output/` folder retains the combined support workbook, the
 portable API input package, and the exact saved response folder. Original inputs,
 models, runtime code, generated unit data, and configuration are preserved.
+
+## Docker deployment
+
+`Dockerfile` builds the existing main application with its three required data
+files and two saved models. `compose.yaml` configures the port, explicit settings,
+restart policy, bounded logs, and a read-only non-root runtime. Temporary files
+are allowed only under `/tmp`. The image health check checks both API health
+endpoints. `.dockerignore` allows only runtime inputs into the build context.
+
+The image starts `python -m uvicorn main:app`, with one worker and no reload.
+The container uses Linux paths rooted at `/app`; shared path constants derive
+that location automatically. Application code, models, and numerical definitions
+are unchanged. HTTPS and client authentication belong to the hosting layer until
+application authentication is explicitly implemented.
+
+
+## Central logging
+
+Application creation loads `.env` with `override=False`, validates DEBUG and
+LOG_LEVEL, and configures timestamped console logs. An explicit LOG_LEVEL wins;
+otherwise DEBUG selects DEBUG or INFO. The app and Uvicorn logger namespaces
+have explicit non-propagating handlers to avoid duplicate output. Other library
+loggers retain warnings and errors through the root handler.
+
+Existing exception logs use the shared logger helper. Lifecycle logs record
+resource initialization, readiness, startup failures, and shutdown. No custom
+print helper, payload logging middleware, or log-file writer is added. Docker
+receives only the explicit logging/application settings declared in Compose.

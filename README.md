@@ -50,6 +50,9 @@ Some labels are alternative spellings of the same unit, so these counts do not m
 unit_conv/
 |-- main.py                         Starts the main application
 |-- requirements.txt                Python packages needed by the application
+|-- Dockerfile                      Builds the deployment image
+|-- compose.yaml                    Runs and manages the deployed API
+|-- .dockerignore                   Limits the image build to required files
 |-- README.md                       This guide
 |
 |-- app/                            Application code
@@ -85,14 +88,13 @@ unit_conv/
 |   |   `-- with_source_units/      Readable response copies including source_unit
 |
 |-- docs/ARCHITECTURE.md             Responsibilities and request workflows
-|-- project_backups/                 Recovery copies and archived development tools
 |-- .venv/                          Local Python environment, created during setup
 `-- ...                             Existing local configuration files
 ```
 
 All running API code is inside `app/`, started by `main.py`. There is no separate unit-conversion application and no `unit_mapping_lab` folder.
 
-Keep the original source workbooks, reference files and models. Normal API requests do not modify them. Loose testing folders and offline tools have been removed from the working project and preserved in `project_backups/development_archives/Archived_Development_Tools.zip`.
+Keep the original source workbooks, reference files and models. Normal API requests do not modify them. Loose testing folders and offline tools have been removed from the working project and preserved in `../project_backups/development_archives/Archived_Development_Tools.zip`.
 
 ## 3. Set up the project on Windows
 
@@ -265,15 +267,15 @@ The working folders contain the running application and its required data.
 Loose `tests/`, `scripts/`, sample inputs, and mapping reports have been removed.
 
 The current development tools are preserved in
-`project_backups/development_archives/Archived_Development_Tools.zip`.
+`../project_backups/development_archives/Archived_Development_Tools.zip`.
 All 110 archived files were verified before the loose copies were removed.
 Extract this ZIP into the project root only when maintenance or regression
 testing is needed. Normal API startup does not require it.
 
 Older output files, including the mnemonic catalog and intermediate JSON
-reports, are preserved in `project_backups/Archived_Output_Files.zip`.
+reports, are preserved in `../project_backups/Archived_Output_Files.zip`.
 Previous development archives and test packages are stored under
-`project_backups/development_archives/`.
+`../project_backups/development_archives/`.
 
 The output folder now keeps only:
 
@@ -310,7 +312,7 @@ The main application exposes exactly two business endpoints: template classifica
 | A supplied `unit_type` conflicts with the unit | Correct the category or use `null` so the mapped category is used. |
 | A test package does not match the API version | Restart the API after changes; restore the maintenance archive, then regenerate inputs with `python -m scripts.make_api_test_inputs` if the approved mappings changed. |
 
-For mapping maintenance, restore `scripts/` and `output/unit_mapping/` from `project_backups/development_archives/Archived_Development_Tools.zip`. Building or compiling mappings is a maintenance operation; normal setup only requires installing packages and starting `main:app`.
+For mapping maintenance, restore `scripts/` and `output/unit_mapping/` from `../project_backups/development_archives/Archived_Development_Tools.zip`. Building or compiling mappings is a maintenance operation; normal setup only requires installing packages and starting `main:app`.
 
 ## 10. Detailed conversion accuracy audit
 
@@ -318,7 +320,7 @@ The latest audit corrected the tropical-year convention (`a[t]`) and improved
 Fahrenheit factor precision. All 1,466 SI formulas passed an independent Decimal
 reference reconstruction and 14,660 checks of their actual saved responses.
 Definitions, feed conventions, source limitations and the two numeric corrections
-are documented in the accuracy review at `output/unit_mapping/CONVERSION_ACCURACY_REVIEW.md` inside `project_backups/development_archives/Development_Archive.zip`.
+are documented in the accuracy review at `output/unit_mapping/CONVERSION_ACCURACY_REVIEW.md` inside `../project_backups/development_archives/Development_Archive.zip`.
 
 After restoring the maintenance tools from the archive and running the API tests, verify the saved responses independently:
 
@@ -344,7 +346,7 @@ through `app/utils/config.py`.
 Template data and the saved model load once per application worker. Restart the
 server after changing data, models, or mappings.
 
-To repeat development checks, first restore `project_backups/development_archives/Archived_Development_Tools.zip` into the project root. Then run:
+To repeat development checks, first restore `../project_backups/development_archives/Archived_Development_Tools.zip` into the project root. Then run:
 
 ```cmd
 .venv\Scripts\python.exe -B -m unittest discover -s tests -v
@@ -354,7 +356,7 @@ These include a comparison against 121 saved pre-refactor API scenarios covering
 all 1,504 source labels and 90 realistic template/conversion cases.
 
 A full verified copy of the project before the architecture changes is kept in
-`project_backups/before_architecture_refactor/`. Keep this recovery copy until
+`../project_backups/before_architecture_refactor/`. Keep this recovery copy until
 you are satisfied with the updated project.
 
 
@@ -370,3 +372,150 @@ as `rtwe_ccgr` rather than numbered identifiers.
 
 No changes are needed to your API requests or response fields. Restart the server
 to load the simplified code.
+
+
+## Deploy with Docker
+
+Docker runs the same main application with both existing API endpoints.
+Install Docker Engine and the Docker Compose plugin on a Linux server, or use
+Docker Desktop with Linux containers on Windows.
+
+Keep these files on the deployment machine before building:
+
+- `main.py`, `app/`, `requirements.txt`, and the Docker files.
+- `data/templates.json`, `data/dataset.csv`, and `data/unit_conversion/unit_catalog.json`.
+- `models/vectorizer.joblib` and `models/template_model.joblib`.
+
+The model files are excluded from Git and must be supplied separately when
+deploying a fresh repository checkout.
+
+### Build and start
+
+Run from the project root:
+
+```cmd
+docker compose up --build -d --wait
+```
+
+Then open `http://SERVER_ADDRESS:8000/docs`. On your own computer, use
+`http://127.0.0.1:8000/docs`. Both API endpoints retain the same inputs and response
+fields.
+
+### Check, view logs, and stop
+
+```cmd
+docker compose ps
+docker compose logs --tail=100 -f api
+docker compose down
+```
+
+Press Ctrl+C to leave the log view; this does not stop the container.
+The health check checks both the main and conversion health endpoints. Startup
+also loads and validates the unit catalog and default prediction model.
+
+### Optional settings
+
+`.env.example` lists masked placeholders. Replace those placeholders with actual
+values when preparing a new `.env`; do not use them literally. Compose defaults
+are shown in the table below. Your existing `.env` keeps its actual settings.
+
+| Variable | Default | Purpose |
+| --- | --- | --- |
+| `API_BIND_HOST` | `0.0.0.0` | Host interface that publishes the port; use `127.0.0.1` behind a same-host proxy |
+| `API_PORT` | `8000` | Published host port; change it if another API already uses this port |
+| `IMAGE_TAG` | `local` | Tag of the locally built deployment image |
+| `DEBUG` | `false` | Enable the DEBUG default when no explicit log level is set |
+| `LOG_LEVEL` | Automatic | Explicit logging threshold; overrides the DEBUG-derived default |
+| `TEMPLATE_DATA_FILE` | `data/templates.json` | Template path inside the container |
+| `VALIDATION_DATA_FILE` | `data/dataset.csv` | Validation dataset path inside the container |
+| `TEMPLATE_PREDICTOR_MODULE` | `app.ml_predictor` | Existing prediction adapter |
+
+For example, setting `API_PORT=8001` publishes the API on port 8001 while the
+container continues listening on port 8000. Path overrides must refer to files
+inside the container, not Windows paths.
+
+The build includes only application code, requirements, the three required data
+files, and the two models. It excludes `.env`, workbooks, outputs, tests, and the
+local virtual environment. Compose passes only the declared application and logging
+settings; it does not copy the entire `.env` into the container.
+
+The service runs as a non-root user with a read-only filesystem, a temporary
+writable `/tmp`, bounded logs, and a restart policy. It runs one Uvicorn worker
+without development reload. Neither endpoint needs Ollama.
+
+For a public deployment, configure HTTPS and access control in your hosting
+platform or reverse proxy. The application currently has no API authentication.
+
+After changing code, models, requirements, or unit data, rebuild and recreate:
+
+```cmd
+docker compose up --build -d --wait
+```
+
+A restart alone does not incorporate changed files into the image. Saved local
+API responses and workbooks are not mounted or modified by the deployed service.
+
+The backup folder is outside the active project, at
+`../project_backups/`, beside `unit_conv/`. It is not part of the Docker build
+context.
+
+Docker configuration references:
+[Compose service settings](https://docs.docker.com/reference/compose-file/services/)
+and [build context exclusions](https://docs.docker.com/build/concepts/context/#dockerignore-files).
+
+
+## Logging and debug settings
+
+`app/utils/env.py` loads the local `.env` without replacing existing system or
+container environment variables. `app/utils/debug.py` configures Python logging
+and provides `get_logger()`. Logging is configured when the application is
+created, before resources are initialized.
+
+Production defaults:
+
+```env
+DEBUG=false
+LOG_LEVEL=INFO
+```
+
+For development, use:
+
+```env
+DEBUG=true
+LOG_LEVEL=DEBUG
+```
+
+An explicit `LOG_LEVEL` takes priority. If it is empty or unset, `DEBUG=true`
+selects DEBUG and `DEBUG=false` selects INFO. Invalid values stop startup with
+a configuration error. DEBUG controls logging defaults; it does not enable
+FastAPI traceback responses.
+
+Use the logger in application code:
+
+```python
+from app.utils.debug import get_logger
+
+logger = get_logger(__name__)
+
+logger.debug("Loading template model")
+logger.info("API resources ready")
+logger.warning("A dependency is temporarily unavailable")
+```
+
+Inside an exception handler, use `logger.exception("Operation failed")` to
+include the traceback. No custom print wrapper is needed. Warnings and errors
+are controlled by the log level and are never disabled simply because DEBUG
+is false. Credentials, environment values, and full reading payloads are not
+added to the new lifecycle logs.
+
+Logs contain a timestamp with timezone, severity, logger name, and message.
+They go to the terminal for local runs and to Docker's stdout logs in containers:
+
+```cmd
+docker compose logs --tail=100 -f api
+```
+
+The application does not create local log files. Docker retains the configured
+three rotating 10 MB log files. Restart the local API after changing settings;
+for Docker changes, recreate/rebuild with
+`docker compose up --build -d --wait`.

@@ -2,8 +2,8 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from app.services.errors import ConversionBatchError
-import logging
-logger = logging.getLogger(__name__)
+from app.utils.debug import get_logger
+logger = get_logger(__name__)
 
 async def validation_exception_handler(
     request: Request,

@@ -6,19 +6,35 @@ from app.api.routers.template_routes import router as template_router
 from app.repositories.template_repository import get_template_repository
 from app.services.tools.predictor import get_predictor
 from app.services.unit_conversion_service import get_converter
+from app.utils.debug import configure_logging, get_logger
+from app.utils.env import load_environment
 import os
+
+logger = get_logger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    get_converter()
-    get_template_repository()
-    get_predictor()
-    if os.getenv("TEMPLATE_PREDICTOR_MODULE", "app.ml_predictor") == "app.ml_predictor":
-        from app.ml_predictor import load_model_bundle
-        load_model_bundle()
-    yield
+    logger.info("Initializing API resources.")
+    try:
+        logger.debug("Loading unit conversion resources.")
+        get_converter()
+        logger.debug("Loading template repository and prediction adapter.")
+        get_template_repository()
+        get_predictor()
+        if os.getenv("TEMPLATE_PREDICTOR_MODULE", "app.ml_predictor") == "app.ml_predictor":
+            from app.ml_predictor import load_model_bundle
+            load_model_bundle()
+    except Exception:
+        logger.exception("API startup failed.")
+        raise
+    logger.info("API resources ready.")
+    try:
+        yield
+    finally:
+        logger.info("API stopped.")
 
 def create_app() -> FastAPI:
+    configure_logging(load_environment())
     app = FastAPI(
         title="AI Monitoring Template Selection API",
         description=(
