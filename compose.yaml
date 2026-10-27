@@ -1,0 +1,29 @@
+services:
+  api:
+    image: unit-conv-api:${IMAGE_TAG:-local}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${API_BIND_HOST:-0.0.0.0}:${API_PORT:-8000}:8000"
+    environment:
+      DEBUG: "${DEBUG:-false}"
+      LOG_LEVEL: "${LOG_LEVEL:-}"
+      TEMPLATE_DATA_FILE: ${TEMPLATE_DATA_FILE:-data/templates.json}
+      VALIDATION_DATA_FILE: ${VALIDATION_DATA_FILE:-data/dataset.csv}
+      TEMPLATE_PREDICTOR_MODULE: ${TEMPLATE_PREDICTOR_MODULE:-app.ml_predictor}
+    init: true
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    stop_grace_period: 35s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

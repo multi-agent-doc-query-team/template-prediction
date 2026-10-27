@@ -1,15 +1,13 @@
 from fastapi import APIRouter, HTTPException
-
 from app.schemas.template import (
     ClassificationResponse,
     HealthResponse,
     TemplateRequest,
 )
 from app.services.template_service import classify_and_get_template
-
-
+from app.utils.debug import get_logger
 router = APIRouter()
-
+logger = get_logger(__name__)
 
 @router.get("/", tags=["System"])
 def root():
@@ -19,7 +17,6 @@ def root():
         "version": "1.0.0",
         "documentation": "/docs",
     }
-
 
 @router.get(
     "/health",
@@ -31,7 +28,6 @@ def health_check():
         "status": "healthy",
         "message": "Template Selection API is operational.",
     }
-
 
 @router.post(
     "/api/v1/templates/classify",
@@ -45,7 +41,6 @@ def classify_template(request: TemplateRequest):
             well_name=request.well_name,
             service_provider=request.service_provider,
         )
-
         if error:
             raise HTTPException(
                 status_code=error["status_code"],
@@ -54,7 +49,6 @@ def classify_template(request: TemplateRequest):
                     "message": error["message"],
                 },
             )
-
         return {
             "success": True,
             "message": (
@@ -76,11 +70,10 @@ def classify_template(request: TemplateRequest):
                 if key != "well_names"
             },
         }
-
     except HTTPException:
         raise
-
     except Exception:
+        logger.exception("Template classification request failed.")
         raise HTTPException(
             status_code=500,
             detail={

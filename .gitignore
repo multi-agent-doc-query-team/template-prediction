@@ -23,3 +23,5 @@ dist/
 output/*
 !output/.gitkeep
 models/
+# Local recovery copies may include private configuration.
+project_backups/

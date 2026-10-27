@@ -1,14 +1,10 @@
-"""Shared normalization for provider and activity inputs."""
-
-import re
 from difflib import SequenceMatcher
-
+import re
 
 def _key(value: str) -> str:
     value = value.strip().lower()
     value = re.sub(r"[^a-z0-9]+", "_", value)
     return re.sub(r"_+", "_", value).strip("_")
-
 
 PROVIDER_ALIASES = {
     "slb": "slb",
@@ -42,13 +38,10 @@ ACTIVITY_ALIASES = {
     "pulling_out_of_hole": "trip_out",
 }
 
-
 def _canonicalize(value: str, aliases: dict[str, str], threshold: float) -> str:
     normalized = _key(value)
-
     if normalized in aliases:
         return aliases[normalized]
-
     candidates = list(set(aliases.values()))
     best = max(
         candidates,
@@ -57,14 +50,11 @@ def _canonicalize(value: str, aliases: dict[str, str], threshold: float) -> str:
     score = SequenceMatcher(None, normalized, best).ratio()
     return best if score >= threshold else normalized
 
-
 def normalize_provider_name(value: str) -> str:
     return _canonicalize(value, PROVIDER_ALIASES, threshold=0.72)
 
-
 def normalize_activity_name(value: str) -> str:
     return _canonicalize(value, ACTIVITY_ALIASES, threshold=0.68)
-
 
 def build_model_text(
     *,
@@ -72,14 +62,6 @@ def build_model_text(
     well_name: str,
     service_provider: str,
 ) -> str:
-    """Build the exact text representation used to train the ML model.
-
-    Keep this transformation deliberately small. The character n-gram model
-    was trained on lower-cased raw values so that it can learn spelling and
-    formatting variations itself. Both training and inference must call this
-    function to prevent feature drift.
-    """
-
     return (
         f"provider={str(service_provider).lower()} "
         f"activity={str(activity_name).lower()} "
