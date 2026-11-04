@@ -51,7 +51,7 @@ unit_conv/
 |-- main.py                         Starts the main application
 |-- requirements.txt                Python packages needed by the application
 |-- Dockerfile                      Builds the deployment image
-|-- compose.yaml                    Runs and manages the deployed API
+|-- docker-compose.yaml                    Runs and manages the deployed API
 |-- .dockerignore                   Limits the image build to required files
 |-- README.md                       This guide
 |
@@ -59,9 +59,9 @@ unit_conv/
 |   |-- api/                        Application setup, errors, and routers
 |   |   |-- application.py          Builds the main API and loads shared resources
 |   |   |-- exception_handlers.py   Formats API errors
-|   |   `-- routers/               Template and unit-conversion endpoints
-|   |-- schemas/                    Rules for accepted inputs and returned answers
-|   |-- services/                   Template prediction and conversion logic
+|   |   |-- routers/               Template and unit-conversion endpoints
+|   |   |-- schemas/               Rules for accepted inputs and returned answers
+|   |   `-- services/              Template prediction and conversion logic
 |   |-- repositories/               Loads and indexes template source files
 |   |-- utils/unit_conversion/      Resolve, validate, calculate with Pint, format
 |   |-- ml_predictor.py             Uses the saved template prediction model
@@ -290,7 +290,8 @@ contains its own runner if you want to repeat the complete API checks.
 
 | Address | What it does |
 | --- | --- |
-| `GET /health` | Confirms that the main application responds |
+| `GET /api/v1/` | Application information |
+| `GET /api/v1/health` | Confirms that the main application responds |
 | `GET /api/v1/telemetry/health` | Shows conversion counts and the mapping version |
 | `POST /api/v1/templates/classify` | Predicts a monitoring template |
 | `POST /api/v1/telemetry/convert` | Returns verified SI formulas or explicit passthrough instructions |
@@ -333,7 +334,7 @@ Restart an already running API after installing these corrected mappings.
 
 ## Architecture and regression checks
 
-The current main folder structure is retained. Routes handle web requests,
+API routes, schemas, and services are grouped under `app/api/`. Routes handle web requests,
 services apply the business rules, repositories read the template files, and
 the existing unit utilities calculate physical conversions with Pint. See
 [the architecture guide](docs/ARCHITECTURE.md) for the detailed workflow.
@@ -405,12 +406,12 @@ fields.
 
 ```cmd
 docker compose ps
-docker compose logs --tail=100 -f api
+docker compose logs --tail=100 -f ai-unit-conversion-api
 docker compose down
 ```
 
 Press Ctrl+C to leave the log view; this does not stop the container.
-The health check checks both the main and conversion health endpoints. Startup
+The health check makes one request to `/api/v1/health`. Startup
 also loads and validates the unit catalog and default prediction model.
 
 ### Optional settings
@@ -512,10 +513,55 @@ Logs contain a timestamp with timezone, severity, logger name, and message.
 They go to the terminal for local runs and to Docker's stdout logs in containers:
 
 ```cmd
-docker compose logs --tail=100 -f api
+docker compose logs --tail=100 -f ai-unit-conversion-api
 ```
 
 The application does not create local log files. Docker retains the configured
 three rotating 10 MB log files. Restart the local API after changing settings;
 for Docker changes, recreate/rebuild with
 `docker compose up --build -d --wait`.
+
+
+## Service name and API version
+
+The Docker Compose service and image are named `ai-unit-conversion-api`.
+The Makefile uses this same service name. Application endpoints use the shared
+`API_V1_PREFIX` constant:
+
+- `GET /api/v1/`: application information.
+- `GET /api/v1/health`: main application health.
+- `GET /api/v1/telemetry/health`: conversion health.
+- `POST /api/v1/templates/classify`: template prediction.
+- `POST /api/v1/telemetry/convert`: unit conversion.
+
+The previous `/` and `/health` application routes have moved to their versioned
+addresses. Swagger UI remains at `/docs` and the API specification at
+`/openapi.json`.
+
+```cmd
+docker compose up --build -d --wait
+docker compose logs --tail=100 -f ai-unit-conversion-api
+```
+
+When updating an existing deployment that used the old service name `api`,
+run `docker compose up --build -d --wait --remove-orphans` after confirming the
+old service belongs to this same project. This replaces the old service so it
+does not retain the published port.
+
+
+### Route and response responsibilities
+
+Files under `app/api/routers/` declare API endpoints and call service functions.
+They do not build template response dictionaries or contain prediction/error
+handling logic. Services apply the business rules and construct the existing
+response models defined under `app/api/schemas/`. Central exception handlers format
+HTTP errors. No API addresses, response fields, or prediction rules change.
+
+
+## API package organization
+
+`app/api/routers/` declares endpoints. `app/api/schemas/` defines request and
+response models. `app/api/services/` contains the API application services and
+prediction adapter. Shared repositories, utilities, and the saved-model adapter
+remain under `app/`. The previous sibling `app/services/` and `app/schemas/`
+folders have moved; API URLs, response fields, and business rules are unchanged.

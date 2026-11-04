@@ -1,6 +1,8 @@
 from typing import Dict, List, Optional
+from app.api.schemas.template import ClassificationResponse, TemplateRequest
 from app.repositories.template_repository import get_template_repository
-from app.services.tools.predictor import predict_template_id
+from app.api.services.errors import TemplateSelectionError
+from app.api.services.tools.predictor import predict_template_id
 from app.utils.debug import get_logger
 
 logger = get_logger(__name__)
@@ -128,3 +130,52 @@ def classify_and_get_template(
             or template_id != expected_template_id
         ),
     }, None
+
+def get_application_info() -> dict:
+    return {
+        "success": True,
+        "message": "AI Monitoring Template Selection API is running.",
+        "version": "1.0.0",
+        "documentation": "/docs",
+    }
+
+def get_template_health() -> dict:
+    return {
+        "status": "healthy",
+        "message": "Template Selection API is operational.",
+    }
+
+def classify_template(request: TemplateRequest) -> ClassificationResponse:
+    try:
+        result, error = classify_and_get_template(
+            activity_name=request.activity_name,
+            well_name=request.well_name,
+            service_provider=request.service_provider,
+        )
+        if error:
+            raise TemplateSelectionError(
+                error["message"], invalid_input=error["status_code"] == 400
+            )
+        payload = {
+            "success": True,
+            "message": (
+                "Monitoring template selected successfully."
+                if not result["needs_review"]
+                else "Template prediction requires manual review."
+            ),
+            "input": request.model_dump(),
+            "predicted_template_id": result["template_id"],
+            "prediction_confidence": result["confidence"],
+            "needs_review": result["needs_review"],
+            "predicted_template": {
+                key: value
+                for key, value in result["template"].items()
+                if key != "well_names"
+            },
+        }
+    except TemplateSelectionError:
+        raise
+    except Exception as error:
+        logger.exception("Template classification request failed.")
+        raise TemplateSelectionError("We could not process your request.") from error
+    return ClassificationResponse(**payload)

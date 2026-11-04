@@ -1,6 +1,6 @@
 from functools import lru_cache
-from app.schemas.telemetry import ConversionRequest, ConversionResponse, Formula
-from app.services.errors import ConversionBatchError
+from app.api.schemas.telemetry import ConversionRequest, ConversionResponse, Formula
+from app.api.services.errors import ConversionBatchError
 from app.utils.unit_conversion.presentation import display_target_unit
 from app.utils.unit_conversion.runtime import RuntimeConverter
 from app.utils.unit_conversion.catalog import get_catalog
