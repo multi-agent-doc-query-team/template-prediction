@@ -1,9 +1,11 @@
 fastapi
 uvicorn[standard]
-pydantic
+pydantic>=2,<3
+python-dotenv>=1,<2
 joblib
 numpy
 pandas
 scikit-learn==1.6.1
-ollama
-Pint
+Pint==0.26.1
+httpx
+scipy
