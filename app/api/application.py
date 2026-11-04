@@ -4,8 +4,9 @@ from app.api.exception_handlers import register_exception_handlers
 from app.api.routers.telemetry_routes import router as telemetry_router
 from app.api.routers.template_routes import router as template_router
 from app.repositories.template_repository import get_template_repository
-from app.services.tools.predictor import get_predictor
-from app.services.unit_conversion_service import get_converter
+from app.api.services.tools.predictor import get_predictor
+from app.api.services.unit_conversion_service import get_converter
+from app.utils.constants import API_V1_PREFIX
 from app.utils.debug import configure_logging, get_logger
 from app.utils.env import load_environment
 import os
@@ -48,6 +49,6 @@ def create_app() -> FastAPI:
         lifespan=lifespan,
     )
     register_exception_handlers(app)
-    app.include_router(template_router)
-    app.include_router(telemetry_router)
+    app.include_router(template_router, prefix=API_V1_PREFIX)
+    app.include_router(telemetry_router, prefix=API_V1_PREFIX)
     return app

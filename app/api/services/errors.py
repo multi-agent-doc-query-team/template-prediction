@@ -4,3 +4,8 @@ class ConversionBatchError(Exception):
     def __init__(self, errors: list[dict[str, Any]]) -> None:
         self.errors = errors
         super().__init__("One or more readings cannot be converted.")
+
+class TemplateSelectionError(Exception):
+    def __init__(self, message: str, *, invalid_input: bool = False) -> None:
+        self.invalid_input = invalid_input
+        super().__init__(message)

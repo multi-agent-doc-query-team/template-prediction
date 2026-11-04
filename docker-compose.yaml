@@ -1,6 +1,6 @@
 services:
-  api:
-    image: unit-conv-api:${IMAGE_TAG:-local}
+  ai-unit-conversion-api:
+    image: ai-unit-conversion-api:${IMAGE_TAG:-local}
     build:
       context: .
       dockerfile: Dockerfile

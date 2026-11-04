@@ -1,5 +1,7 @@
 from pathlib import Path
 
+API_V1_PREFIX = "/api/v1"
+
 BASE_DIR = Path(__file__).resolve().parents[2]
 ENV_FILE = BASE_DIR / ".env"
 DATA_DIR = BASE_DIR / "data"

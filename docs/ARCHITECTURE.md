@@ -1,6 +1,6 @@
 # Application architecture
 
-The existing main folder structure is retained. There are two business endpoints,
+API routes, schemas, and services are grouped under `app/api/`. There are two business endpoints,
 served by `main:app`: template classification and telemetry unit conversion.
 
 ## Responsibilities
@@ -10,10 +10,10 @@ served by `main:app`: template classification and telemetry unit conversion.
 | `main.py` | Expose the ASGI application to Uvicorn |
 | `app/api/application.py` | Build the application, register routes, initialize resources |
 | `app/api/exception_handlers.py` | Format public HTTP errors and log unexpected failures |
-| `app/api/routers/` | Accept requests and assemble public API responses |
-| `app/schemas/` | Validate request fields and define response contracts |
-| `app/services/` | Apply template selection and conversion batch policies |
-| `app/services/tools/predictor.py` | Load the configured predictor adapter |
+| `app/api/routers/` | Declare endpoints and delegate to service functions |
+| `app/api/schemas/` | Validate request fields and define response contracts |
+| `app/api/services/` | Apply business rules and construct response models |
+| `app/api/services/tools/predictor.py` | Load the configured predictor adapter |
 | `app/repositories/` | Read and index the template files |
 | `app/ml_predictor.py` | Run the existing saved classification model |
 | `app/utils/constants.py` | Central project directories and default file paths |
@@ -139,10 +139,9 @@ models, runtime code, generated unit data, and configuration are preserved.
 ## Docker deployment
 
 `Dockerfile` builds the existing main application with its three required data
-files and two saved models. `compose.yaml` configures the port, explicit settings,
+files and two saved models. `docker-compose.yaml` configures the port, explicit settings,
 restart policy, bounded logs, and a read-only non-root runtime. Temporary files
-are allowed only under `/tmp`. The image health check checks both API health
-endpoints. `.dockerignore` allows only runtime inputs into the build context.
+are allowed only under `/tmp`. The image health check makes one request to `/api/v1/health`. `.dockerignore` allows only runtime inputs into the build context.
 
 The image starts `python -m uvicorn main:app`, with one worker and no reload.
 The container uses Linux paths rooted at `/app`; shared path constants derive
@@ -163,3 +162,35 @@ Existing exception logs use the shared logger helper. Lifecycle logs record
 resource initialization, readiness, startup failures, and shutdown. No custom
 print helper, payload logging middleware, or log-file writer is added. Docker
 receives only the explicit logging/application settings declared in Compose.
+
+## API version and Compose service
+
+The Compose service and image are `ai-unit-conversion-api`.
+`app/utils/constants.py` defines `API_V1_PREFIX = "/api/v1"`; application setup
+applies it to both routers. Route modules define only their relative paths.
+All application routes, including health and application information, therefore
+share the v1 prefix. Swagger and OpenAPI infrastructure URLs retain their
+existing locations. The Docker health check uses `/api/v1/health`.
+
+
+## Thin API routes
+
+Template and telemetry route functions contain endpoint declarations and direct
+service calls. Template response construction is in `template_service.py` and
+uses `ClassificationResponse` from `schemas/template.py`. Application information
+and main health payloads are also supplied by service functions.
+
+Template selection failures are represented by `TemplateSelectionError`.
+The centralized API exception handler converts that failure to the existing HTTP
+status and error body. Service functions do not create FastAPI responses or raise
+HTTPException. Existing template-selection helpers, validation rules, confidence
+thresholds, fields, and messages remain unchanged.
+
+
+## API package organization
+
+`app/api/routers/` declares endpoints. `app/api/schemas/` defines request and
+response models. `app/api/services/` contains the API application services and
+prediction adapter. Shared repositories, utilities, and the saved-model adapter
+remain under `app/`. The previous sibling `app/services/` and `app/schemas/`
+folders have moved; API URLs, response fields, and business rules are unchanged.

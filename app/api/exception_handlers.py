@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
-from app.services.errors import ConversionBatchError
+from app.api.services.errors import ConversionBatchError, TemplateSelectionError
 from app.utils.debug import get_logger
 logger = get_logger(__name__)
 
@@ -91,8 +91,15 @@ async def conversion_exception_handler(request: Request, exc: ConversionBatchErr
         content={"success": False, "message": str(exc), "errors": exc.errors},
     )
 
+async def template_exception_handler(request: Request, exc: TemplateSelectionError):
+    return JSONResponse(
+        status_code=400 if exc.invalid_input else 500,
+        content={"success": False, "message": str(exc)},
+    )
+
 def register_exception_handlers(app: FastAPI) -> None:
     app.add_exception_handler(RequestValidationError, validation_exception_handler)
     app.add_exception_handler(HTTPException, http_exception_handler)
     app.add_exception_handler(ConversionBatchError, conversion_exception_handler)
+    app.add_exception_handler(TemplateSelectionError, template_exception_handler)
     app.add_exception_handler(Exception, unexpected_exception_handler)

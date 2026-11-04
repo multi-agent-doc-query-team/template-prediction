@@ -1,8 +1,8 @@
 from fastapi import APIRouter
-from app.schemas.telemetry import ConversionRequest, ConversionResponse
-from app.services.unit_conversion_service import convert_readings, health
+from app.api.schemas.telemetry import ConversionRequest, ConversionResponse
+from app.api.services.unit_conversion_service import convert_readings, health
 
-router = APIRouter(prefix="/api/v1/telemetry", tags=["Telemetry"])
+router = APIRouter(prefix="/telemetry", tags=["Telemetry"])
 
 @router.get("/health")
 def conversion_health():
